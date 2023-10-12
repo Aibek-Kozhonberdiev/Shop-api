@@ -2,8 +2,7 @@ from django.contrib.auth.models import User
 from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
-from rest_framework.decorators import api_view
-from rest_framework import generics, viewsets
+from rest_framework import viewsets
 
 from .serializers import CategorySerializer, UserSerializer, ProductSerializer
 from .models import Category, Product
@@ -49,10 +48,9 @@ class ViewAPICategory(APIView):
         snippet.delete()
         return Response({'delete': f"category {pk} removed"})
 
-class ViewAPIProduct(viewsets.ModelViewSet):
+class ViewAPIProductSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
 
 class UserViewSet(viewsets.ModelViewSet):
     queryset = User.objects.all()
