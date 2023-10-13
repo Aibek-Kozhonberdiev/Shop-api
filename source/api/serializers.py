@@ -19,12 +19,6 @@ class CategorySerializer(serializers.Serializer):
         return instance
 
 
-class UserSerializer(serializers.ModelSerializer):
-    class Meta:
-        model = User
-        fields = ['id', 'username', 'email', 'password']
-
-
 class ProductSerializer(serializers.ModelSerializer):
     class Meta:
         model = Product

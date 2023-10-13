@@ -3,15 +3,15 @@ from django.http import Http404
 from rest_framework.response import Response
 from rest_framework.views import APIView
 from rest_framework import viewsets
+from rest_framework.permissions import IsAuthenticatedOrReadOnly, IsAdminUser, IsAuthenticated
 
-from .serializers import CategorySerializer, UserSerializer, ProductSerializer
+from .serializers import CategorySerializer, ProductSerializer
 from .models import Category, Product
 
 
 class ViewAPICategory(APIView):
-    """
-    Retrieve, update or delete a snippet instance.
-    """
+    permission_classes = (IsAuthenticatedOrReadOnly, )
+
     def get_object(self, pk):
         try:
             return Category.objects.get(pk=pk)
@@ -51,7 +51,4 @@ class ViewAPICategory(APIView):
 class ViewAPIProductSet(viewsets.ModelViewSet):
     queryset = Product.objects.all()
     serializer_class = ProductSerializer
-
-class UserViewSet(viewsets.ModelViewSet):
-    queryset = User.objects.all()
-    serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated, )
